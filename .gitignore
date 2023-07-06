@@ -1,3 +1,4 @@
 *.pem
 research-training-openrc.sh
-
+git_token
+email
