@@ -50,7 +50,7 @@ runcmd:
  - echo "-------------------------------------"
  - cd /nimbus/src/maali-1.5
  - sudo -u ubuntu bash -c '/nimbus/src/maali-1.5/maali -t maali -v 1.5j -c nimbus -d'
- # builds the gcc/9.4.0 module
+ # builds the gcc/11.3.0 module
  #- sudo -u ubuntu bash -c '/nimbus/src/maali/1.5j/bin/maali -t system-gcc -v 9.4.0 -c ubuntu20'
  - cd /nimbus/src
  - sudo chown -R ubuntu:ubuntu /nibmus/src
@@ -58,7 +58,7 @@ runcmd:
  - wget https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2023.06.0-421-amd64.deb
  - gdebi -n rstudio-server-2023.06.0-421-amd64.deb
  - sudo mkdir -p /etc/rstudio
- - echo "rsession-which-r=/nimbus/ubuntu20.04/apps/r/4.0.5/bin/R" > /etc/rstudio/rserver.conf
+ - echo "rsession-which-r=/nimbus/ubuntu22.04/apps/r/4.0.5/bin/R" > /etc/rstudio/rserver.conf
  - sudo useradd -m -s /bin/bash blackswan
  - sudo usermod -a -G ubuntu blackswan
  - sudo chown ubuntu:ubuntu /home/ubuntu/zerotoR.sh
