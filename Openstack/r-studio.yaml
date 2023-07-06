@@ -41,15 +41,15 @@ runcmd:
  - chown -R ubuntu:ubuntu /nimbus/src
  # install maali to compiler R
  - cd /nimbus/src
- - wget https://github.com/chrisbuwahpc/maali-1.5/archive/refs/tags/1.5j.tar.gz
- - tar -xvf 1.5j.tar.gz
- - mv maali-1.5-1.5j maali-1.5
+ - wget https://github.com/chrisbuwahpc/maali-1.5/archive/refs/tags/1.5k.tar.gz
+ - tar -xvf 1.5k.tar.gz
+ - mv maali-1.5-1.5k maali-1.5
  - chown -R ubuntu:ubuntu /nimbus/src/maali-1.5
  # show status in logfile
  - echo "module path variable is $MODULEPATH"
  - echo "-------------------------------------"
  - cd /nimbus/src/maali-1.5
- - sudo -u ubuntu bash -c '/nimbus/src/maali-1.5/maali -t maali -v 1.5j -c nimbus -d'
+ - sudo -u ubuntu bash -c '/nimbus/src/maali-1.5/maali -t maali -v 1.5k -c nimbus -d'
  # builds the gcc/11.3.0 module
  #- sudo -u ubuntu bash -c '/nimbus/src/maali/1.5j/bin/maali -t system-gcc -v 9.4.0 -c ubuntu20'
  - cd /nimbus/src
