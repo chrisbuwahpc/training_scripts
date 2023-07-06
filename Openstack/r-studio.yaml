@@ -1,0 +1,72 @@
+#cloud-config 
+# for r-studio
+package_upgrade: true
+#install using apt default packages for using maali and Rstudio
+packages:
+ - tcl8.6 
+ - zip 
+ - unzip
+ - environment-modules
+ - gdebi-core
+ - bc
+ - make
+ - libtool
+ - rpm
+ # install libcurses-dev for cmake support
+ - libncurses-dev
+ - libcairo2-dev
+ # install libraries for R 
+ - libcurl4-gnutls-dev 
+ - libpcre2-dev
+ - libpng-dev 
+ - zlib1g-dev 
+ - libjpeg-turbo8-dev
+ - libreadline-dev 
+ - libbz2-dev
+ - liblzma-dev
+ - gfortran
+ # install libraries for x2go
+ #- software-properties-common
+ #- xubuntu-core
+runcmd:
+ # create soft link somethings are looking for tclsh and not tclsh8.6
+ - ln -s /usr/bin/tclsh8.6 /usr/bin/tclsh
+ # configure git variables
+ - git config --global user.name "Chris Bording"
+ - git config --global user.email "Chris.Bording@uwa.edu.au"
+ # create root directory to install maali
+ - mkdir -p /nimbus/src
+ # change persmissions so they are owned by default user ubuntu
+ - chown -R ubuntu:ubuntu /nimbus
+ - chown -R ubuntu:ubuntu /nimbus/src
+ # install maali to compiler R
+ - cd /nimbus/src
+ - wget https://github.com/chrisbuwahpc/maali-1.5/archive/refs/tags/1.5j.tar.gz
+ - tar -xvf 1.5j.tar.gz
+ - mv maali-1.5-1.5j maali-1.5
+ - chown -R ubuntu:ubuntu /nimbus/src/maali-1.5
+ # show status in logfile
+ - echo "module path variable is $MODULEPATH"
+ - echo "-------------------------------------"
+ - cd /nimbus/src/maali-1.5
+ - sudo -u ubuntu bash -c '/nimbus/src/maali-1.5/maali -t maali -v 1.5j -c nimbus -d'
+ # builds the gcc/9.4.0 module
+ #- sudo -u ubuntu bash -c '/nimbus/src/maali/1.5j/bin/maali -t system-gcc -v 9.4.0 -c ubuntu20'
+ - cd /nimbus/src
+ - sudo chown -R ubuntu:ubuntu /nibmus/src
+ #- wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-2022.02.3-492-amd64.deb
+ - wget https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2023.06.0-421-amd64.deb
+ - gdebi -n rstudio-server-2023.06.0-421-amd64.deb
+ - sudo mkdir -p /etc/rstudio
+ - echo "rsession-which-r=/nimbus/ubuntu20.04/apps/r/4.0.5/bin/R" > /etc/rstudio/rserver.conf
+ - sudo useradd -m -s /bin/bash blackswan
+ - sudo usermod -a -G ubuntu blackswan
+ - sudo chown ubuntu:ubuntu /home/ubuntu/zerotoR.sh
+ - sudo chmod 750 /home/ubuntu/zerotoR.sh
+ # install x2go server 
+ #- sudo add-apt-repository ppa:x2go/stable
+ #- sudo apt-get install -y x2goserver x2goserver-xsession
+ #- sudo sed -i '17s/#X2/ X2/' /etc/x2go/x2goagent.options
+ 
+
+ 
